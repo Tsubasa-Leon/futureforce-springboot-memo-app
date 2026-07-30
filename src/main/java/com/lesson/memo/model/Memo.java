@@ -33,6 +33,7 @@ public class Memo {
     
     @Enumerated(EnumType.STRING)
     @NotNull(message = "優先度を選択してください")
+    @Column(nullable = false)
     private Priority priority;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")

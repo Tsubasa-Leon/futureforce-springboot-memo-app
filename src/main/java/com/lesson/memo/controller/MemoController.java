@@ -93,7 +93,7 @@ public class MemoController {
     }
 
     @PostMapping("/update/{id}")
-    public String update(@PathVariable Long id,
+    public String update(@PathVariable Long id, Model model,
             @ModelAttribute @Valid Memo memo,
             BindingResult result,
             HttpServletResponse response,
@@ -108,8 +108,7 @@ public class MemoController {
         Memo memoToUpdate = opt.get();
 
         if (result.hasErrors()) {
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.memo", result);
-            redirectAttributes.addFlashAttribute("memo", memo);
+        	model.addAttribute("priorities", Priority.values());
             return "redirect:/memo/edit/" + id; // editにリダイレクト
         }
 
