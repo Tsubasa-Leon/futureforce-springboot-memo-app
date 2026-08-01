@@ -77,6 +77,7 @@ public class MemoController {
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model, HttpServletResponse response) {
         if (model.containsAttribute("memo")) {
+        	model.addAttribute("priorities", Priority.values());
             return "memo-form";
         }
 
@@ -93,7 +94,7 @@ public class MemoController {
     }
 
     @PostMapping("/update/{id}")
-    public String update(@PathVariable Long id, Model model,
+    public String update(@PathVariable Long id,
             @ModelAttribute @Valid Memo memo,
             BindingResult result,
             HttpServletResponse response,
@@ -108,7 +109,9 @@ public class MemoController {
         Memo memoToUpdate = opt.get();
 
         if (result.hasErrors()) {
-        	model.addAttribute("priorities", Priority.values());
+        	 redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.memo", result);
+             redirectAttributes.addFlashAttribute("memo", memo);
+             redirectAttributes.addFlashAttribute("priorities", Priority.values());
             return "redirect:/memo/edit/" + id; // editにリダイレクト
         }
 
