@@ -111,7 +111,6 @@ public class MemoController {
         if (result.hasErrors()) {
         	 redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.memo", result);
              redirectAttributes.addFlashAttribute("memo", memo);
-             redirectAttributes.addFlashAttribute("priorities", Priority.values());
             return "redirect:/memo/edit/" + id; // editにリダイレクト
         }
 
