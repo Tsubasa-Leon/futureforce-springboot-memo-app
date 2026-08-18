@@ -30,11 +30,11 @@ public class MemoController {
     @Autowired
     private MemoRepository memoRepository;
 
-    @GetMapping({"","/search"})
+    @GetMapping("")
     public String list(@RequestParam(required = false)String keyword,Model model) {
         List<Memo> memos;
         
-    	if(keyword == null || keyword.isEmpty()) {
+    	if(keyword == null || keyword.isBlank()) {
     		 memos = memoRepository.findAll();
     	}else{
     		memos = memoRepository.findByTitleContainingOrContentContaining(keyword,keyword);
@@ -142,4 +142,18 @@ public class MemoController {
 
         return "redirect:/memo";
     }
+    @GetMapping("/search")
+    public String search(@RequestParam(required = false) String keyword, Model model) {
+    	List<Memo> memos;
+    	
+    	if(keyword == null || keyword.isBlank()) {
+   		 	memos = memoRepository.findAll();
+    	}else{
+    		memos = memoRepository.findByTitleContainingOrContentContaining(keyword,keyword);	
+    	}
+    	
+    	model.addAttribute("memos", memos);
+    	model.addAttribute("keyword", keyword);
+        return "memo-list";
+      }
 }
