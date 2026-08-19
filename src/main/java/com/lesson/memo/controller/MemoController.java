@@ -30,16 +30,10 @@ public class MemoController {
     @Autowired
     private MemoRepository memoRepository;
 
-    @GetMapping("")
-    public String list(@RequestParam(required = false)String keyword,Model model) {
-        List<Memo> memos;
-        
-    	if(keyword == null || keyword.isBlank()) {
-    		 memos = memoRepository.findAll();
-    	}else{
-    		memos = memoRepository.findByTitleContainingOrContentContaining(keyword,keyword);
-    	}
-        
+    @GetMapping("") 
+    public String list(Model model) {
+        List<Memo> memos = memoRepository.findAll();
+    
         memos.sort((a, b) -> 
         a.getPriority().compareTo(b.getPriority())
         );
@@ -151,6 +145,10 @@ public class MemoController {
     	}else{
     		memos = memoRepository.findByTitleContainingOrContentContaining(keyword,keyword);	
     	}
+    	
+    	memos.sort((a, b) -> 
+        a.getPriority().compareTo(b.getPriority())
+        );
     	
     	model.addAttribute("memos", memos);
     	model.addAttribute("keyword", keyword);
