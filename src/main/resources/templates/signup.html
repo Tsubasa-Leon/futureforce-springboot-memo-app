@@ -10,18 +10,43 @@
 	<form th:action="@{/admin/create}" method="post" th:object="${admin}">
 		<label>名字</label>
 		<input type="text" th:field="*{lastName}">
+		<div th:if="${#fields.hasErrors('lastName')}">
+    		<span th:text="${error}"
+    			  th:each="error : ${#fields.errors('lastName')}">
+    		</span>
+			
+		</div>
 		
 		<label>名前</label>
 		<input type="text" th:field="*{firstName}">
+		<div th:if="${#fields.hasErrors('firstName')}">
+    		<span th:text="${error}"
+    			  th:each="error : ${#fields.errors('firstName')}">
+    		</span>
+		</div>	
 
 		
 		<label>メールアドレス</label>
 		<input type="email" th:field="*{email}">
+		<div th:if="${#fields.hasErrors('email')}">
+    		<span th:text="${error}"
+    			  th:each="error : ${#fields.errors('email')}">
+    		</span>
+		</div>	
 		
 		<label>パスワード</label>
 		<input type="password" th:field="*{password}">
+		<div th:if="${#fields.hasErrors('password')}">
+    		<span th:text="${error}"
+    			  th:each="error : ${#fields.errors('password')}">
+    		</span>
+		</div>	
 		
 		<button type="submit">登録</button>
 		
+		<a th:href="@{/admin/signin}">ログイン画面へ</a>
+		
 	</form>
 </body>
+
+</html>

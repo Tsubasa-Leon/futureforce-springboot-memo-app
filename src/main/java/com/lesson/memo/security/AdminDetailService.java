@@ -22,7 +22,7 @@ public class AdminDetailService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) {
 		Optional<Admin> optAdmin = adminRepository.findByEmail(username);
 		
-		if(optAdmin == null) {
+		if(optAdmin.isEmpty()) {
 			throw new UsernameNotFoundException("存在しないユーザー情報です");
 		}
 		

@@ -53,7 +53,7 @@ public class AdminController {
 		        	    passwordEncoder.encode(admin.getPassword())
 		        	);
 		        adminRepository.save(admin);
-		        return"signin";
+		        return "redirect:/admin/signin";
 	}
 	
 }
